@@ -1,0 +1,18 @@
+return {
+  summary = "Gen 1 bag pockets and a larger bag (60 slots).",
+  author = "autumn",
+  tags = { "quality-of-life", "bag", "gen1" },
+  differences = {
+    added = {
+      "Left/Right pocket cycle: Items, Balls, Key Items, TMs & HMs",
+      "Bag capacity raised to 60",
+      "SELECT reorder within a pocket (TMs & HMs stay sorted)",
+      "Berries pocket when Kanto Reforged is also enabled",
+    },
+    known = {
+      "Gen 1 only; Gen 2 already has native Pack pockets",
+      "BAG GIVE stays with Kanto Reforged when that mod is present",
+    },
+  },
+  compat = { engine = ">=0.1.84 <1.0.0", modApi = 2 },
+}
