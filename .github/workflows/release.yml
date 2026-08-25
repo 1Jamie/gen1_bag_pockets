@@ -28,6 +28,7 @@ on:
     paths-ignore:
       - '.github/**'
       - '**.md'
+      - 'LICENSE'
   workflow_dispatch:
     inputs:
       version:
@@ -44,6 +45,7 @@ concurrency:
 
 jobs:
   release:
+    if: ${{ !contains(github.event.head_commit.message, '[skip release]') }}
     runs-on: ubuntu-latest
 
     steps:
@@ -140,7 +142,8 @@ jobs:
           git archive HEAD | tar -x -C "$staging"
 
           rm -rf "$staging/.github" "$staging/.gitattributes" \
-                 "$staging/.gitignore" "$staging/.luarc.json"
+                 "$staging/.gitignore" "$staging/.luarc.json" \
+                 "$staging/.modkitignore" "$staging/tests"
 
           python3 - "$staging/manifest.json" "$VERSION" <<'PY'
           import json, sys
