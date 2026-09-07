@@ -78,11 +78,19 @@ if ok and list then
   list.onSelectKey(list.items[antidoteIdx], list)
   T.eq(save.bagOrder[1], "ANTIDOTE", "swap moved ANTIDOTE earlier in bagOrder")
   T.eq(save.bagOrder[3], "POTION", "swap moved POTION later in bagOrder")
+  T.eq(list.items[1].count, 1, "rebuildRows preserves count after swap")
+  T.eq(list.items[1].right, nil, "rebuildRows does not set right with ASCII x after swap")
 
   -- Switch to tmhm: reorder disabled
   list.gen1ModernUi.switchPocket(list.gen1ModernUi, 3) -- items->balls->key->tmhm
   T.eq(BagPockets.current().id, "tmhm", "switched to tmhm")
   T.eq(list.onSelectKey, nil, "SELECT reorder disabled on tmhm")
+
+  -- Switch back to items pocket
+  list.gen1ModernUi.switchPocket(list.gen1ModernUi, 1)
+  T.eq(BagPockets.current().id, "items", "switched back to items")
+  T.eq(list.items[1].count, 1, "items use count after pocket switch")
+  T.eq(list.items[1].right, nil, "items do not use right after pocket switch")
 end
 
 -- TM/HM sort
